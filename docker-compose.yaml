@@ -1,0 +1,38 @@
+version: "3.9"
+services:
+  frontend:
+    build:
+      context: ./front
+    volumes:
+      - ./front:/app
+      - /app/node_modules
+    ports:
+      - "5173:5173"
+    networks:
+      - app
+    restart: on-failure:5
+  backend:
+    build: ./back
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    restart: on-failure
+    networks:
+      - app
+  postgres:
+    image: postgres:14-alpine
+    ports:
+      - 5432:5432
+    volumes:
+      - db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=user
+      - POSTGRES_DB=database
+    networks:
+      - app
+volumes:
+  db:
+networks:
+  app:
