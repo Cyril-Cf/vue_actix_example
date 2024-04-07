@@ -20,7 +20,7 @@ export const useUserStore = defineStore('user', () => {
     return res.data
   }
   async function ModifyUser(id: number, new_name: string) {
-    await axios.put(`${import.meta.env.VITE_BACKEND_BASE_URL}${URL_FRAGMENT}/${id}`, {name: new_name});
+    await axios.put(`${import.meta.env.VITE_BACKEND_BASE_URL}${URL_FRAGMENT}/${id}`, { name: new_name });
     await fetchUsers();
   }
   async function getPermissionForUser(id: number) {
@@ -35,7 +35,7 @@ export const useUserStore = defineStore('user', () => {
     }
   }
   async function deleteUser(user_id: number) {
-    await axios.delete(`${import.meta.env.VITE_BACKEND_BASE_URL}${URL_FRAGMENT}/${user_id}`);
+    const res = await axios.delete(`${import.meta.env.VITE_BACKEND_BASE_URL}${URL_FRAGMENT}/${user_id}`);
     await fetchUsers();
   }
   return { users, fetchUsers, addUser, fetchOneUser, ModifyUser, getPermissionForUser, togglePermissionForUser, deleteUser }

@@ -34,7 +34,11 @@ async function confirmDelete(user: User) {
 }
 
 async function handleClick(user: User) {
-  await userStore.deleteUser(user.id);
+  try {
+    await userStore.deleteUser(user.id);
+  } catch (error) {
+    alert("Something went wrong. Are you sure this user doesn't have permissions? Remove all associations first.");
+  }
 }
 </script>
 

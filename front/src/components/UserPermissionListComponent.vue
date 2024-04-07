@@ -10,7 +10,13 @@
       </thead>
       <tbody>
         <tr v-for="permission in permissionStore.permissions" :key="permission.id">
-          <td>{{ permission.name }}</td>
+          <td>
+            <div class="permission-name">
+              <span>{{ permission.name }} </span>
+              <span v-if="doesUserPossessPermission(permission)" class="green-check">&#9989;
+              </span>
+            </div>
+          </td>
           <td>
             <button @click="onChange(permission)">
               {{ showButtonText(permission) }}
@@ -85,7 +91,23 @@ thead th {
   text-align: left;
 }
 
+td {
+  width: 50%;
+  height: 100%;
+}
+
+.permission-name {
+  display: flex;
+  align-items: center;
+}
+
+.green-check {
+  height: 60%;
+  border: none;
+}
+
 button {
+  width: 20%;
   padding: 6px 12px;
   background-color: #007bff;
   color: #fff;

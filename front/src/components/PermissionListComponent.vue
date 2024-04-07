@@ -32,7 +32,11 @@ async function confirmDelete(permission: Permission) {
 }
 
 async function handleClick(permission: Permission) {
-  await permissionStore.deletePermission(permission.id);
+  try {
+    await permissionStore.deletePermission(permission.id);
+  } catch (error) {
+    alert("Something went wrong. Are you sure this permission isn't linked to any user? Remove all associations first.");
+  }
 }
 </script>
 
